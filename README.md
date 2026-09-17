@@ -65,7 +65,7 @@ El workflow se ejecuta en cada `push` a `develop` y en cada `pull_request` dirig
 
 - [Plan DevOps](docs/PLAN_DEVOPS.md)
 - [Plan DevOps en PDF](docs/Plan_DevOps_Proyecto_Movil_EVACUA.pdf)
-- [Backlog y Sprint 0](docs/BACKLOG_SPRINT_0.md)
+- [Backlog y Sprint 0](docs/BACKLOG_SFPRINT_0.md)
 - [Configuración del board](docs/BOARD_SETUP.md)
 - [Carga inicial del board](docs/BOARD_SEED.csv)
 - [Guía de comunicación](docs/GUIA_COMUNICACION.md)
@@ -75,7 +75,6 @@ Cuando se cree el repositorio definitivo, sustituir `USUARIO/EVACUA` en la insig
 
 ## Equipo
 
-- Gabino Reyes García
 - José Felipe García Luna
 - Mariana Guadalupe Cano Márquez
 - Karol Ximena González López
