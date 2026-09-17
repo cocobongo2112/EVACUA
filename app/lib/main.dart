@@ -51,12 +51,14 @@ class HomeScreen extends StatelessWidget {
           _ActionCard(
             icon: Icons.route,
             title: 'Consultar ruta',
-            description: 'Visualiza la ruta preconfigurada y el punto de reunión.',
+            description:
+                'Visualiza la ruta preconfigurada y el punto de reunión.',
           ),
           _ActionCard(
             icon: Icons.fire_extinguisher,
             title: 'Equipos cercanos',
-            description: 'Ubica extintores, botiquines, alarmas y otros recursos.',
+            description:
+                'Ubica extintores, botiquines, alarmas y otros recursos.',
           ),
         ],
       ),
@@ -88,4 +90,3 @@ class _ActionCard extends StatelessWidget {
     );
   }
 }
-
