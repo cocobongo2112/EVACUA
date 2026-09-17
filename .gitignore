@@ -1,0 +1,24 @@
+# Flutter and Dart
+.dart_tool/
+.packages
+.pub/
+.pub-cache/
+build/
+coverage/
+*.lock
+
+# IDE and operating system
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Secrets and signing material
+.env
+*.jks
+*.keystore
+key.properties
+google-services.json
+GoogleService-Info.plist
+

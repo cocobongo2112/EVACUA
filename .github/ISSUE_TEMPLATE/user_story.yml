@@ -1,0 +1,32 @@
+name: Historia de usuario
+description: Proponer valor funcional para un usuario de EVACUA.
+title: "story: "
+labels: [story]
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: Historia
+      placeholder: "Como [rol], quiero [necesidad], para [beneficio]."
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Criterios de aceptación
+      placeholder: "Dado... Cuando... Entonces..."
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioridad MoSCoW
+      options: [Must, Should, Could, Won't por ahora]
+    validations:
+      required: true
+  - type: input
+    id: estimate
+    attributes:
+      label: Estimación
+      placeholder: "1, 2, 3, 5 u 8 puntos"
+

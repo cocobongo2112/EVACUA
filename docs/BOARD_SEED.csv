@@ -1,0 +1,19 @@
+Title,Type,Priority,Iteration,Points,Status,Assignee
+US-01 Consultar mapa del edificio,Historia,Must,Sprint 1,5,Backlog,Mariana Guadalupe Cano Márquez
+US-02 Escanear código QR de zona,Historia,Must,Sprint 1,5,Backlog,Gabino Reyes García
+US-03 Consultar ruta de evacuación,Historia,Must,Sprint 1,8,Backlog,José Felipe García Luna
+US-04 Visualizar ruta sin conexión,Historia,Must,Sprint 1,8,Backlog,Karol Ximena González López
+US-05 Consultar equipo de emergencia,Historia,Should,Sprint 2,3,Backlog,Mariana Guadalupe Cano Márquez
+US-06 Reportar una zona bloqueada,Historia,Should,Sprint 2,5,Backlog,Gabino Reyes García
+US-07 Administrar edificios y zonas,Historia,Must,Sprint 2,8,Backlog,José Felipe García Luna
+US-08 Publicar actualización de rutas,Historia,Must,Sprint 2,5,Backlog,Karol Ximena González López
+US-09 Consultar estado de sincronización,Historia,Could,Sprint 3,3,Backlog,Mariana Guadalupe Cano Márquez
+US-10 Enviar retroalimentación,Historia,Could,Sprint 3,3,Backlog,Gabino Reyes García
+S0-01 Crear repositorio y protección de ramas,Tarea,Must,Sprint 0,2,To-Do,José Felipe García Luna
+S0-02 Generar proyecto Flutter y navegación base,Tarea,Must,Sprint 0,3,To-Do,Gabino Reyes García
+S0-03 Configurar análisis estático y pruebas,Tarea,Must,Sprint 0,3,To-Do,Karol Ximena González López
+S0-04 Configurar GitHub Actions,Tarea,Must,Sprint 0,3,To-Do,José Felipe García Luna
+S0-05 Definir modelo inicial de edificios y zonas,Tarea,Must,Sprint 0,3,To-Do,Mariana Guadalupe Cano Márquez
+S0-06 Elaborar prototipo de mapa y escaneo QR,Tarea,Should,Sprint 0,5,To-Do,Gabino Reyes García
+S0-07 Configurar servidor y canales de Discord,Tarea,Must,Sprint 0,2,To-Do,Karol Ximena González López
+S0-08 Ejecutar primera revisión técnica,Tarea,Should,Sprint 0,2,To-Do,Equipo EVACUA

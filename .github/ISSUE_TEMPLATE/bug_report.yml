@@ -1,0 +1,32 @@
+name: Reporte de error
+description: Registrar un comportamiento incorrecto y reproducible.
+title: "bug: "
+labels: [bug, triage]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Descripción
+      description: Indica qué ocurrió y cuál era el resultado esperado.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Pasos para reproducir
+      placeholder: "1. Abrir...\n2. Seleccionar...\n3. Observar..."
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Ambiente
+      placeholder: "Android 15, versión v0.1.0-beta.1"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidencia y registros
+      description: Adjunta capturas o registros sin datos personales ni secretos.
+
