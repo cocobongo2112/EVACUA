@@ -75,7 +75,6 @@ Cuando se cree el repositorio definitivo, sustituir `USUARIO/EVACUA` en la insig
 
 ## Equipo
 
-- Gabino Reyes García
 - José Felipe García Luna
 - Mariana Guadalupe Cano Márquez
 - Karol Ximena González López
