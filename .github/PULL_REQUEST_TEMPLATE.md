@@ -1,26 +1,31 @@
-## Objetivo
+## Contexto
 
-Describe el cambio y la historia o incidencia relacionada.
+- Módulo o pantalla:
+- Issue relacionado:
+- Tipo de cambio: Feature / Bugfix / Chore / Test
 
-Closes #
+## Descripción
 
-## Tipo de cambio
+Explicar brevemente el problema atendido y la solución implementada.
 
-- [ ] Funcionalidad
-- [ ] Corrección
-- [ ] Refactorización
-- [ ] Documentación o configuración
+## Checklist de calidad
+
+- [ ] El código cumple con la funcionalidad solicitada
+- [ ] La aplicación no presenta errores críticos de análisis
+- [ ] Las pruebas unitarias pasan correctamente
+- [ ] El pipeline de CI se encuentra en verde
+- [ ] Los commits respetan Conventional Commits
+- [ ] No se agregaron credenciales ni datos sensibles
+- [ ] El cambio fue revisado por al menos un integrante
 
 ## Evidencia
 
-Incluye capturas o resultados de prueba cuando aplique.
+Agregar una captura del funcionamiento o de los checks aprobados.
 
-## Lista de verificación
+## Pruebas realizadas
 
-- [ ] El cambio sigue la convención de ramas y commits.
-- [ ] Ejecuté formato, análisis y pruebas localmente.
-- [ ] Agregué o actualicé pruebas.
-- [ ] No incluí secretos, credenciales ni datos personales.
-- [ ] Actualicé la documentación cuando fue necesario.
-- [ ] Solicité al menos una revisión.
+Indicar las pruebas ejecutadas y sus resultados.
 
+## Riesgo y reversión
+
+Describir el riesgo del cambio y cómo podría revertirse.
