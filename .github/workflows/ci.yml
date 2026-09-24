@@ -13,6 +13,10 @@ jobs:
     name: CI Flutter
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: app
+
     steps:
       - name: Descargar código
         uses: actions/checkout@v4
