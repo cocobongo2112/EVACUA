@@ -3,6 +3,8 @@ const emergencyCatalog = require('./emergencyCatalog');
 
 const app = express();
 
+app.disable('x-powered-by');
+
 app.use(express.json());
 
 app.get('/api/health', (_request, response) => {
