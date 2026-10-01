@@ -1,0 +1,47 @@
+name: API Tests and SonarQube
+
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop, main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  test-and-analyze:
+    name: Jest Coverage and Quality Gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: api/package-lock.json
+
+      - name: Instalar dependencias del API
+        working-directory: api
+        run: npm ci
+
+      - name: Ejecutar pruebas AAA y generar cobertura
+        working-directory: api
+        run: npm run test:coverage
+
+      - name: Analizar en SonarQube Cloud
+        uses: SonarSource/sonarqube-scan-action@v7
+        with:
+          projectBaseDir: api
+          args: >
+            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
