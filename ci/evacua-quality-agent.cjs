@@ -66,9 +66,12 @@ if (process.argv[2] === '--enforce') {
 
 const jest = readJson(TEST_RESULTS);
 const coverage = readJson(COVERAGE);
+const reportedTestOutcome = normalizeOutcome(process.env.TEST_OUTCOME);
 const testOutcomeFromFile = jest
   ? (jest.success && jest.numFailedTests === 0 ? 'success' : 'failure')
-  : normalizeOutcome(process.env.TEST_OUTCOME);
+  : (['failure', 'skipped'].includes(reportedTestOutcome)
+    ? reportedTestOutcome
+    : 'unknown');
 
 const stages = [
   {
@@ -105,7 +108,7 @@ const stages = [
       : 'No se encontró coverage-summary.json',
     status: coverage
       ? (coverage.total.lines.pct >= MIN_COVERAGE ? 'success' : 'failure')
-      : (testOutcomeFromFile === 'failure' ? 'skipped' : 'unknown'),
+      : (['failure', 'skipped'].includes(testOutcomeFromFile) ? 'skipped' : 'unknown'),
   },
   {
     id: 'sonar',
@@ -147,7 +150,7 @@ if (!recommendations.length) {
 const failures = stages.filter((stage) => stage.status === 'failure').length;
 const unknowns = stages.filter((stage) => ['unknown', 'skipped'].includes(stage.status)).length;
 const score = Math.max(0, 100 - (failures * 25) - (unknowns * 5));
-const blockMerge = failures > 0 || ['unknown', 'skipped'].includes(sonarStage.status);
+const blockMerge = failures > 0 || unknowns > 0;
 const decision = failures > 0 ? 'BLOQUEADO' : (blockMerge ? 'REVISAR' : 'APROBADO');
 
 const testCases = (jest?.testResults || []).flatMap((suite) =>
