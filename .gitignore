@@ -5,6 +5,7 @@
 .pub-cache/
 build/
 coverage/
+reports/
 *.lock
 
 # IDE and operating system
