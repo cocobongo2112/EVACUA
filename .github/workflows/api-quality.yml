@@ -6,6 +6,12 @@ on:
   push:
     branches: [develop, main]
   workflow_dispatch:
+    inputs:
+      simulate_failure:
+        description: 'Simular un fallo para comprobar la notificación de Discord'
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -112,4 +118,92 @@ jobs:
 
       - name: 10. Aplicar decisión del Quality Gate
         if: always() && hashFiles('reports/quality-agent/report.json') != ''
-        run: node ci/evacua-quality-agent.cjs --enforce reports/quality-agent/report.json
+        env:
+          SIMULATE_FAILURE: ${{ github.event_name == 'workflow_dispatch' && inputs.simulate_failure || false }}
+        run: |
+          node ci/evacua-quality-agent.cjs --enforce reports/quality-agent/report.json
+          if [ "$SIMULATE_FAILURE" = "true" ]; then
+            echo "Fallo controlado solicitado para demostrar la notificación."
+            exit 1
+          fi
+
+      - name: 11. Notificar fallo en Discord
+        if: failure()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPOSITORY: ${{ github.repository }}
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+          WORKFLOW_NAME: ${{ github.workflow }}
+          ACTOR: ${{ github.actor }}
+          COMMIT_SHA: ${{ github.sha }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "No existe el secreto DISCORD_WEBHOOK_URL."
+            exit 1
+          fi
+
+          python3 - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+
+          payload = {
+              "username": "EVACUA CI Bot",
+              "allowed_mentions": {"parse": []},
+              "embeds": [{
+                  "title": "❌ Falló el Pipeline CI de EVACUA",
+                  "description": (
+                      "El agente de calidad detectó un fallo o una condición "
+                      "que impide aprobar la integración."
+                  ),
+                  "url": os.environ["RUN_URL"],
+                  "color": 14495300,
+                  "fields": [
+                      {
+                          "name": "Repositorio",
+                          "value": os.environ["REPOSITORY"],
+                          "inline": True,
+                      },
+                      {
+                          "name": "Rama",
+                          "value": os.environ["BRANCH"],
+                          "inline": True,
+                      },
+                      {
+                          "name": "Workflow",
+                          "value": os.environ["WORKFLOW_NAME"],
+                          "inline": False,
+                      },
+                      {
+                          "name": "Commit",
+                          "value": os.environ["COMMIT_SHA"][:7],
+                          "inline": True,
+                      },
+                      {
+                          "name": "Ejecutado por",
+                          "value": os.environ["ACTOR"],
+                          "inline": True,
+                      },
+                      {
+                          "name": "Evento",
+                          "value": os.environ["EVENT_NAME"],
+                          "inline": True,
+                      },
+                  ],
+                  "footer": {
+                      "text": "Abrir la ejecución para consultar el diagnóstico del agente"
+                  },
+                  "timestamp": datetime.now(timezone.utc).isoformat(),
+              }],
+          }
+
+          with open("discord-payload.json", "w", encoding="utf-8") as file:
+              json.dump(payload, file, ensure_ascii=False)
+          PY
+
+          curl --fail-with-body --retry 2 \
+            -H "Content-Type: application/json" \
+            --data @discord-payload.json \
+            "${DISCORD_WEBHOOK_URL}?wait=true"
