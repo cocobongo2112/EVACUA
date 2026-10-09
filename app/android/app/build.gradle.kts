@@ -50,3 +50,7 @@ kotlin {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    implementation("com.google.android.recaptcha:recaptcha:18.9.3")
+}
