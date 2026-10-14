@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../screens/admin/admin_home_screen.dart';
 import '../screens/emergency/emergency_screen.dart';
 import '../screens/equipment/emergency_equipment_screen.dart';
 import '../screens/home/home_screen.dart';
@@ -9,6 +10,7 @@ import '../screens/register/register_screen.dart';
 import '../screens/route/evacuation_route_screen.dart';
 import '../screens/welcome/welcome_screen.dart';
 import '../screens/zone/my_zone_screen.dart';
+import '../widgets/role_guard.dart';
 
 class AppRoutes {
   static const String welcome = '/';
@@ -20,6 +22,7 @@ class AppRoutes {
   static const String evacuationRoute = '/route';
   static const String emergency = '/emergency';
   static const String equipment = '/equipment';
+  static const String adminHome = '/admin';
 
   static Map<String, WidgetBuilder> get routes => {
         welcome: (_) => const WelcomeScreen(),
@@ -31,5 +34,9 @@ class AppRoutes {
         evacuationRoute: (_) => const EvacuationRouteScreen(),
         emergency: (_) => const EmergencyScreen(),
         equipment: (_) => const EmergencyEquipmentScreen(),
+        adminHome: (_) => const RoleGuard(
+              requiredRole: 'admin',
+              child: AdminHomeScreen(),
+            ),
       };
 }

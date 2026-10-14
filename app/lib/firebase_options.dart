@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -56,7 +53,6 @@ class DefaultFirebaseOptions {
     projectId: 'evacua-utsjr',
     storageBucket: 'evacua-utsjr.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAly159G7XCQarDQyWYmDni7pcUN2gmma0',
     appId: '1:585121909051:ios:0d363e151bed1c7d2b0f1e',
@@ -64,5 +60,14 @@ class DefaultFirebaseOptions {
     projectId: 'evacua-utsjr',
     storageBucket: 'evacua-utsjr.firebasestorage.app',
     iosBundleId: 'com.example.evacua',
+  );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDDo-JvQBPzn2SqEF7ZU3EuC4oCTuNMxTA',
+    appId: '1:585121909051:web:ae852fac7802980a2b0f1e',
+    messagingSenderId: '585121909051',
+    projectId: 'evacua-utsjr',
+    authDomain: 'evacua-utsjr.firebaseapp.com',
+    storageBucket: 'evacua-utsjr.firebasestorage.app',
   );
 }
