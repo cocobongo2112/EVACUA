@@ -54,6 +54,45 @@ service cloud.firestore {
 
         allow create, update, delete: if isAdmin();
       }
+
+      match /exits/{exitId} {
+        allow read: if signedIn()
+          && (
+            (
+              resource.data.active == true
+              && get(/databases/$(database)/documents/buildings/$(buildingId)).data.active == true
+            )
+            || isAdmin()
+          );
+
+        allow create, update, delete: if isAdmin();
+      }
+
+      match /meetingPoints/{pointId} {
+        allow read: if signedIn()
+          && (
+            (
+              resource.data.active == true
+              && get(/databases/$(database)/documents/buildings/$(buildingId)).data.active == true
+            )
+            || isAdmin()
+          );
+
+        allow create, update, delete: if isAdmin();
+      }
+
+      match /routes/{routeId} {
+        allow read: if signedIn()
+          && (
+            (
+              resource.data.active == true
+              && get(/databases/$(database)/documents/buildings/$(buildingId)).data.active == true
+            )
+            || isAdmin()
+          );
+
+        allow create, update, delete: if isAdmin();
+      }
     }
   }
 }

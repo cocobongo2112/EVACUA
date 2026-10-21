@@ -67,13 +67,18 @@ class AdminHomeScreen extends StatelessWidget {
                   AppRoutes.adminBuildings,
                 ),
               ),
+              _AdminModuleCard(
+                icon: Icons.route_outlined,
+                title: 'Gestión de rutas',
+                subtitle: 'Configurar rutas, salidas y puntos de reunión.',
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  AppRoutes.adminEvacuationRoutes,
+                ),
+              ),
               const _AdminModuleCard(
                 icon: Icons.layers_outlined,
                 title: 'Gestión de zonas',
-              ),
-              const _AdminModuleCard(
-                icon: Icons.route_outlined,
-                title: 'Gestión de rutas',
               ),
               const _AdminModuleCard(
                 icon: Icons.warning_amber_rounded,

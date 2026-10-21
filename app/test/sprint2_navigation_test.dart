@@ -1,3 +1,4 @@
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,8 +11,10 @@ import 'package:evacua/screens/qr/qr_scanner_screen.dart';
 import 'package:evacua/screens/route/evacuation_route_screen.dart';
 import 'package:evacua/screens/zone/my_zone_screen.dart';
 import 'package:evacua/services/firebase/auth_service.dart';
+import 'package:evacua/services/firebase/building_service.dart';
+import 'package:evacua/services/firebase/evacuation_route_service.dart';
 
-Widget _buildTestApp() {
+Future<Widget> _buildTestApp() async {
   final authService = AuthService(
     auth: MockFirebaseAuth(
       signedIn: true,
@@ -22,12 +25,28 @@ Widget _buildTestApp() {
     ),
   );
 
+  final firestore = FakeFirebaseFirestore();
+
+  await firestore.collection('buildings').doc('building-test').set({
+    'name': 'Edificio de prueba',
+    'address': 'Campus EVACUA',
+    'description': '',
+    'active': true,
+  });
+
   return MaterialApp(
     home: HomeScreen(authService: authService),
     routes: {
       AppRoutes.qrScanner: (_) => const QrScannerScreen(),
       AppRoutes.myZone: (_) => const MyZoneScreen(),
-      AppRoutes.evacuationRoute: (_) => const EvacuationRouteScreen(),
+      AppRoutes.evacuationRoute: (_) => EvacuationRouteScreen(
+            buildingService: BuildingService(
+              firestore: firestore,
+            ),
+            routeService: EvacuationRouteService(
+              firestore: firestore,
+            ),
+          ),
       AppRoutes.emergency: (_) => const EmergencyScreen(),
       AppRoutes.equipment: (_) => const EmergencyEquipmentScreen(),
     },
@@ -54,7 +73,7 @@ void main() {
   testWidgets('Home navega a Escanear ubicación', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(_buildTestApp());
+    await tester.pumpWidget(await _buildTestApp());
 
     await _tapHomeOption(tester, 'Escanear ubicación');
 
@@ -67,7 +86,7 @@ void main() {
   testWidgets('Home navega a Mi zona', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(_buildTestApp());
+    await tester.pumpWidget(await _buildTestApp());
 
     await _tapHomeOption(tester, 'Mi zona');
 
@@ -78,18 +97,24 @@ void main() {
   testWidgets('Home navega a Ruta de evacuación', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(_buildTestApp());
+    await tester.pumpWidget(await _buildTestApp());
 
     await _tapHomeOption(tester, 'Consultar ruta');
 
-    expect(find.text('Ruta de demostración'), findsOneWidget);
-    expect(find.text('Punto de reunión'), findsOneWidget);
+    expect(
+      find.text('Selecciona un edificio'),
+      findsOneWidget,
+    );
+    expect(
+      find.text('Edificio de prueba'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('Home navega a Modo de emergencia', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(_buildTestApp());
+    await tester.pumpWidget(await _buildTestApp());
 
     await _tapHomeOption(tester, 'Modo de emergencia');
 
@@ -104,7 +129,7 @@ void main() {
   testWidgets('Home navega a Equipos de emergencia', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(_buildTestApp());
+    await tester.pumpWidget(await _buildTestApp());
 
     await _tapHomeOption(tester, 'Equipos de emergencia');
 
