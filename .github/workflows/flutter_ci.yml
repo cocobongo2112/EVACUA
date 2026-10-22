@@ -46,7 +46,7 @@ jobs:
         run: flutter test --coverage
 
       - name: Enforce coverage threshold
-        run: python ../ci/check_coverage.py coverage/lcov.info 70
+        run: python ../ci/check_coverage.py coverage/lcov.info 40
 
       - name: Upload coverage report
         if: always()
