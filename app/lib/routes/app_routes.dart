@@ -1,20 +1,57 @@
 import 'package:flutter/material.dart';
 
+import '../screens/admin/admin_home_screen.dart';
+import '../screens/admin/buildings_admin_screen.dart';
+import '../screens/admin/evacuation_routes_admin_screen.dart';
+import '../screens/buildings/buildings_screen.dart';
+import '../screens/emergency/emergency_screen.dart';
+import '../screens/equipment/emergency_equipment_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/login/login_screen.dart';
+import '../screens/qr/qr_scanner_screen.dart';
 import '../screens/register/register_screen.dart';
+import '../screens/route/evacuation_route_screen.dart';
 import '../screens/welcome/welcome_screen.dart';
+import '../screens/zone/my_zone_screen.dart';
+import '../widgets/role_guard.dart';
 
 class AppRoutes {
   static const String welcome = '/';
   static const String login = '/login';
   static const String register = '/register';
   static const String home = '/home';
+  static const String qrScanner = '/qr';
+  static const String myZone = '/zone';
+  static const String evacuationRoute = '/route';
+  static const String emergency = '/emergency';
+  static const String equipment = '/equipment';
+  static const String buildings = '/buildings';
+  static const String adminHome = '/admin';
+  static const String adminBuildings = '/admin/buildings';
+  static const String adminEvacuationRoutes = '/admin/evacuation-routes';
 
   static Map<String, WidgetBuilder> get routes => {
         welcome: (_) => const WelcomeScreen(),
         login: (_) => const LoginScreen(),
         register: (_) => const RegisterScreen(),
         home: (_) => const HomeScreen(),
+        qrScanner: (_) => const QrScannerScreen(),
+        myZone: (_) => const MyZoneScreen(),
+        evacuationRoute: (_) => const EvacuationRouteScreen(),
+        emergency: (_) => const EmergencyScreen(),
+        equipment: (_) => const EmergencyEquipmentScreen(),
+        buildings: (_) => const BuildingsScreen(),
+        adminHome: (_) => const RoleGuard(
+              requiredRole: 'admin',
+              child: AdminHomeScreen(),
+            ),
+        adminBuildings: (_) => const RoleGuard(
+              requiredRole: 'admin',
+              child: BuildingsAdminScreen(),
+            ),
+        adminEvacuationRoutes: (_) => const RoleGuard(
+              requiredRole: 'admin',
+              child: EvacuationRoutesAdminScreen(),
+            ),
       };
 }
