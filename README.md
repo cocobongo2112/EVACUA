@@ -61,6 +61,13 @@ python ../ci/check_coverage.py coverage/lcov.info 70
 
 El workflow se ejecuta en cada `push` a `develop` y en cada `pull_request` dirigido a `main` o `develop`. Instala Flutter, descarga dependencias, comprueba el formato, ejecuta el análisis estático, corre las pruebas y valida una cobertura mínima de 70 %.
 
+### Agente inteligente del Pipeline CI
+
+El repositorio incorpora **EVACUA Quality Agent**, que interpreta las pruebas de API, la cobertura y el Quality Gate de SonarQube. En cada Pull Request genera un diagnóstico por fases, publica recomendaciones y guarda un tablero gráfico HTML como evidencia.
+
+- [Documentación del agente](docs/AGENTE_INTELIGENTE_CI.md)
+- Ejecución local en Windows: `powershell -ExecutionPolicy Bypass -File .\ci\ejecutar-agente-local.ps1`
+
 ## Planeación
 
 - [Plan DevOps](docs/PLAN_DEVOPS.md)
@@ -75,7 +82,6 @@ Cuando se cree el repositorio definitivo, sustituir `USUARIO/EVACUA` en la insig
 
 ## Equipo
 
-- Gabino Reyes García
 - José Felipe García Luna
 - Mariana Guadalupe Cano Márquez
 - Karol Ximena González López

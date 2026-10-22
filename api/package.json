@@ -1,0 +1,23 @@
+{
+  "name": "evacua-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "API REST de apoyo para el proyecto móvil EVACUA",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest --runInBand",
+    "test:coverage": "jest --coverage --runInBand",
+    "test:ci": "jest --coverage --runInBand --json --outputFile=reports/jest-results.json"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.1.4"
+  }
+}
